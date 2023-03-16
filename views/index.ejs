@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Raven Messenger</title>
+</head>
+<body>
+    <main>
+        <section>
+            <h1>Raven Messenger</h1>
+            <div class="form__section">
+                <form action="/send" method="post">
+                    <h2>Send A Raven</h2>
+                    <div class="form">
+                        <div>
+                            <label for="profile" id="profile">Your Profile Name</label>
+                            <input type="text" name="profile" class="profile">
+                        </div>
+                        <div>
+                            <label for="profile-img-url">Your Profile Avatar</label>
+                            <input type="" name="profile-img-url" class="profile" placeholder="image url">
+                        </div>
+                        <textarea name="message" id="message" cols="10" rows="5" maxlength="240" placeholder="your message..."></textarea>
+                    </div>
+                    <button type="submit">Send Raven</button>
+                </form>
+            </div>
+        </section>
+        <section>
+            <div class="timeline">
+                <% for (let i=0; i < messageObj.length; i++) {%>
+                <div class="message__body">
+                <div>
+                  <div class="message__id" name="id"><%= messageObj[i].id %></div>
+                <div class="profile__container">
+                    <img src="<%- messageObj[i].img %>" class="profile__image">
+                    <p class="message__profile" name="profile"><%= messageObj[i].profile %><span><%= messageObj[i].time %></span></p> 
+                </div>   
+                  <p class="message__msg" name="message"><%= messageObj[i].message %></p>              
+                </div>      
+
+                  <div class="message__menu">
+                    <div class="delete icon"><a href="/delete/<%= i %>">&#128465;</a></div>
+                    <div class="edit icon"><a href="/edit/<%= i %>">e</a></div>
+                    <div class="icon"><a href="#">&#10084;</a></div>
+                    <div class="icon"><a href="#">&#128488;</a></div>
+                    <div class="icon"><a href="#">&#8645;</a></div>
+                </div>                   
+            </div>
+                <% } %>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

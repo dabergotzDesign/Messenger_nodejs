@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Movie list</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form action="/send" method="post" class="edit-form">
+      <input type="hidden" id="id" name="id" value="<%= movie.id %>" />
+      <div>
+        <p><%= messageObj.profile %></p>
+      </div>
+      <div>
+        <label for="message">Edit Message:</label>
+        <input type="text" id="message" name="message" value="<%= messageObj.message %>" />
+      </div>
+      <div>
+        <button type="submit">SAVE</button>
+      </div>
+    </form>
+  </body>
+</html>
