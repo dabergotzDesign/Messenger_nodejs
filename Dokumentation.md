@@ -15,7 +15,7 @@ npm i body-parser
 
 ```
 ```
-npm i mongodb
+npm i mongoose
 
 ```
 Server wird unter 'http://127.0.0.1:8081/' gestartet
@@ -28,4 +28,4 @@ Timeline: vier Links (3 sind nicht funktionsfähig), Mülleimer-Icon löscht die
 
 ##Bugs
 Avatar Bild - falls leer/undefined platzhalter einfügen, keine methode
-MongoDB - fügt hinzu, kein update falls Object gelöscht wird
+Mongoose - fügt hinzu, kein update falls Object gelöscht wird
