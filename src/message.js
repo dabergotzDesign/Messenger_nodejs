@@ -1,8 +1,8 @@
 class New_message{
-    constructor (id, profile, img, time, message){
+    constructor (id, avatar, profile, time, message){
         this.id = id,
+        this.avatar = avatar,
         this.profile = profile,
-        this.img = img,
         this.time = time,
         this.message = message
     }

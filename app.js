@@ -4,6 +4,11 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const app = express();
 
+//MongoDB
+const MongoClient = require("mongodb").MongoClient;
+const url = "mongodb://127.0.0.1:27017/raven_messenger";
+const client = new MongoClient(url);
+
 const New_message = require('./src/message');
 
 
@@ -35,19 +40,47 @@ fs.readFile('./data/messages_data.json', 'utf-8', (error, data)=>{
 
     app.post('/send', (req, res) => {
 
-        if(req.body.img === undefined){
-            console.log("placeholder profile");
-        }
+        //set date
+        let time = new Date();
+        let d = String(time.getDate()).padStart(2, '0');
+        let m = String(time.getMonth()+1).padStart(2, '0');
+        let y = time.getFullYear();
+        let t = time.getHours() + ":" + time.getMinutes();
 
+        time = d + "-" + m + "-" + y + "," + t
+        req.body.time = time;  
 
+ 
         const new_message = new New_message(
             req.body.id,
+            req.body.avatar,
             req.body.profile,
-            req.body.img,
             req.body.time,
             req.body.message           
             );
             messageObj.push(new_message);
+
+            fs.writeFile("./data/messages_data.json", JSON.stringify(messageObj), "utf-8", (error) => {
+                if (error) console.log("Error:" + error);
+              });
+
+            //Mongo database
+            async function databaseRun(){
+            const messenger = client.db("raven_messenger");
+            const messages = messenger.collection("messages");
+
+            const msgObj = {
+                new_message
+            };
+
+            const result = await messages.insertOne(msgObj);
+            console.log("new message: " + JSON.stringify(result));
+
+            await client.close();
+
+            }
+            databaseRun();
+
             res.redirect('/');
     });
 
@@ -61,6 +94,9 @@ fs.readFile('./data/messages_data.json', 'utf-8', (error, data)=>{
         //console.log(messageObj);
      
         messageObj.splice(req.params.id, 1);
+
+        //delete one mongo
+        //???
         
         fs.writeFile("./data/messages_data.json", JSON.stringify(messageObj), "utf-8",(error) =>{
             if(error){
@@ -69,14 +105,7 @@ fs.readFile('./data/messages_data.json', 'utf-8', (error, data)=>{
         })
         res.redirect('/');
     })
-
-         
-
-    fs.writeFile("./data/messages_data.json", JSON.stringify(messageObj), "utf-8", (error) => {
-        if (error) console.log("Error:" + error);
-      });
-
-    
+ 
     
     
     app.listen(port, ip, () => {
@@ -85,4 +114,5 @@ fs.readFile('./data/messages_data.json', 'utf-8', (error, data)=>{
 
   }
 );
+
 

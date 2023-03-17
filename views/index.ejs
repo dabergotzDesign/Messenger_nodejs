@@ -21,7 +21,7 @@
                         </div>
                         <div>
                             <label for="profile-img-url">Your Profile Avatar</label>
-                            <input type="" name="profile-img-url" class="profile" placeholder="image url">
+                            <input type="" name="avatar" class="profile" placeholder="image url">
                         </div>
                         <textarea name="message" id="message" cols="10" rows="5" maxlength="240" placeholder="your message..."></textarea>
                     </div>
@@ -36,15 +36,15 @@
                 <div>
                   <div class="message__id" name="id"><%= messageObj[i].id %></div>
                 <div class="profile__container">
-                    <img src="<%- messageObj[i].img %>" class="profile__image">
+                    <img src="<%= messageObj[i].avatar %>" class="profile__image">
                     <p class="message__profile" name="profile"><%= messageObj[i].profile %><span><%= messageObj[i].time %></span></p> 
+                   
                 </div>   
                   <p class="message__msg" name="message"><%= messageObj[i].message %></p>              
                 </div>      
 
                   <div class="message__menu">
                     <div class="delete icon"><a href="/delete/<%= i %>">&#128465;</a></div>
-                    <div class="edit icon"><a href="/edit/<%= i %>">e</a></div>
                     <div class="icon"><a href="#">&#10084;</a></div>
                     <div class="icon"><a href="#">&#128488;</a></div>
                     <div class="icon"><a href="#">&#8645;</a></div>
